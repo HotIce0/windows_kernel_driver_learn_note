@@ -1,0 +1,63 @@
+﻿;
+; FirstWDMDriver.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=%ClassName%
+ClassGuid={F9EA06A5-C840-4880-9DBB-A5D725C71034}
+Provider=%ManufacturerName%
+DriverVer=
+CatalogFile=FirstWDMDriver.cat
+PnpLockdown=1
+
+;This template is supported for OS version 17763 (Windows 10 version 1809) and after.
+;For Windows OS prior to Windows 10 1809 set DefaultDestDir = 12
+[DestinationDirs]
+DefaultDestDir = 12
+
+[SourceDisksNames]
+1 = %DiskName%,Disk1,,""
+
+[SourceDisksFiles]
+HelloWDM.sys = 1
+
+[ClassInstall32]
+AddReg=AddClass
+
+[AddClass]
+HKR,,,,%ClassName%
+HKR,,Icon,,"-5"
+
+[Manufacturer]
+%ManufacturerName%=Standard,NT$ARCH$
+
+[Standard.NT$ARCH$]
+%DeviceDesc%=Install_Section, PCI\VEN_5174&DEV_7708
+
+[Install_Section]
+CopyFiles=CopyFiles_Section
+
+[Install_Section.NT$ARCH$]
+CopyFiles=CopyFiles_Section
+
+[CopyFiles_Section]
+HelloWDM.sys
+
+[Install_Section.NT$ARCH$.Services]
+AddService=%ServicesName%,0x2,InstallServices_Section
+
+[InstallServices_Section]
+DisplayName=%ServicesDisplayName%
+ErrorControl=1
+ServiceBinary=%12%\HelloWDM.sys
+StartType=3
+ServiceType=1
+
+[Strings]
+ClassName="HelloWDM Class"
+ManufacturerName="Hotice0"
+DiskName="HelloWDM"
+DeviceDesc="Hello World WDM!"
+ServicesDisplayName="HelloWDM"
+ServicesName="HelloWDM"
