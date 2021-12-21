@@ -11,13 +11,15 @@ DriverVer=
 CatalogFile=FirstWDMDriver.cat
 PnpLockdown=1
 
-;This template is supported for OS version 17763 (Windows 10 version 1809) and after.
-;For Windows OS prior to Windows 10 1809 set DefaultDestDir = 12
+; 用于指定 Copyfiles, Delfiles, Renfiles等指令的目标目录
+; [DefaultDestDir=dirid[,subdir]] 
+; https://docs.microsoft.com/en-us/windows-hardware/drivers/install/using-dirids
+; 12 = Drivers directory. This is equivalent to %SystemRoot%\system32\drivers for Windows 2000 and later versions of Windows.
 [DestinationDirs]
 DefaultDestDir = 12
 
 [SourceDisksNames]
-1 = %DiskName%,Disk1,,""
+1 = %DiskName%,,,""
 
 [SourceDisksFiles]
 HelloWDM.sys = 1
